@@ -1,0 +1,66 @@
+[
+	{
+		"id": 1,
+		"type": "single",
+		"category": "default",
+		"name": "Single Room",
+		"description": "",
+		"costModifier": 1
+	},
+	{
+		"id": 2,
+		"type": "twin",
+		"category": "default",
+		"name": "Twin Room",
+		"description": "",
+		"costModifier": 2
+	},
+	{
+		"id": 3,
+		"type": "double",
+		"category": "default",
+		"name": "Double Room",
+		"description": "",
+		"costModifier": 2
+	},
+	{
+		"id": 4,
+		"type": "family",
+		"category": "default",
+		"name": "Family Room",
+		"description": "",
+		"costModifier": 4
+	},
+	{
+		"id": 5,
+		"type": "suit",
+		"category": "default",
+		"name": "Suit",
+		"description": "",
+		"costModifier": 6
+	},
+	{
+		"id": 6,
+		"type": "bridal",
+		"category": "specialist",
+		"name": "Bridal Suit",
+		"description": "",
+		"costModifier": 12
+	},
+	{
+		"id": 7,
+		"type": "presidential",
+		"category": "specialist",
+		"name": "Presidential Suit",
+		"description": "",
+		"costModifier": 80
+	},
+	{
+		"id": 8,
+		"type": "penthouse",
+		"category": "specialist",
+		"name": "Penthouse",
+		"description": "",
+		"costModifier": 100
+	}
+]

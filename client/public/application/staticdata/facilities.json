@@ -1,0 +1,17 @@
+[
+	{
+		"id": "tea/coffee",
+		"name": "Tea and Coffee",
+		"costModifier": 1
+	},
+	{
+		"id": "bath",
+		"name": "Bath",
+		"costModifier": 1
+	},
+	{
+		"id": "housekeeping",
+		"name": "Housekeeping",
+		"costModifier": 0
+	}
+]

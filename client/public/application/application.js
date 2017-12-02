@@ -1,8 +1,10 @@
 define(['backbone.marionette',
        'routers/index',
+       'data/hotel',
        'cookies'],
        function(Marionette,
                 Router,
+                Hotel,
                 Cookies) {
 	'use strict';
 
@@ -45,6 +47,11 @@ define(['backbone.marionette',
 
 			// var game = Game.resume();
 
+			this.hotel = new Hotel();
+
+			this.listenToOnce(this.hotel, 'ready', this.onPreloadComplete);
+
+
 			// if (game)
 			// {
 			// 	// Don't want too long for the game to load 'cause it blocks the user
@@ -66,7 +73,7 @@ define(['backbone.marionette',
 			// else
 			// {
 			// 	console.log("No game to resume");
-				this.onPreloadComplete();
+				// this.onPreloadComplete();
 			// }
 		},
 
@@ -74,7 +81,7 @@ define(['backbone.marionette',
 		{
 			// Start routing
 			console.log("Starting Backbone.history");
-			Backbone.history.start();
+			_.defer(function() { Backbone.history.start() });
 		},
 
 		show: function(view)

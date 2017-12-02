@@ -1,0 +1,31 @@
+<h3><%- allocated %> <%- name %></h3>
+
+<div>
+	<div class="form-group form-inline">
+		<label>Allocate</label> <span id="allocation"><%- allocated %></span> of <%- obj.available %>
+		<input type="hidden" name="allocate" value="<%- allocated %>" min="0" />
+		<div class="btn-group btn-group-sm" role="group">
+			<button type="button" class="btn btn-primary" name="allocate" value="none">None</button>
+			<button type="button" class="btn btn-primary" name="allocate" value="-5">-5</button>
+			<button type="button" class="btn btn-primary" name="allocate" value="-1">-1</button>
+			<button type="button" class="btn btn-primary" name="allocate" value="1">+1</button>
+			<button type="button" class="btn btn-primary" name="allocate" value="5">+5</button>
+			<button type="button" class="btn btn-primary" name="allocate" value="max">Max</button>
+		</div>
+	</div>
+</div>
+
+<div id="facilitylist"></div>
+
+<div class="form-group form-inline text-right">
+	<label>Cost</label>
+	<div class="input-group input-group-sm">
+		<span class="input-group-addon">&pound;</span>
+		<input type="text" class="form-control" placeholder="" readonly />
+	</div>
+</div>
+
+<div class="text-right">
+	<a href="#/Hotel/1/Rooms" type="button" class="btn btn-secondary">Cancel</a>
+	<button type="button" class="btn btn-success" name="apply">Apply</button>
+</div>
