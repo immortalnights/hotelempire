@@ -29,7 +29,11 @@ define(['backbone.marionette',
 		index: function()
 		{
 			console.log("router:index");
-			Backbone.history.navigate('#/Hotel/1');
+
+			// Get the ID of the first hotel
+			var id = this.getGame().getHotels().first().id;
+
+			Backbone.history.navigate('#/Hotel/' + id);
 			// this.getApp().show(new Marionette.View({
 			// 	template: _.template('abc')
 			// }));
@@ -39,29 +43,60 @@ define(['backbone.marionette',
 		{
 			console.log("router:hotel", id);
 
-			this.getApp().show(new Marionette.View({
-				template: _.template('<a href="#/Hotel/1/Rooms">Manage Rooms</a>')
-			}));
+			var hotel = this.getGame().getHotels().get(id);
+
+			if (hotel)
+			{
+				this.getApp().show(new Marionette.View({
+					template: _.template('<a href="#/Hotel/' + hotel.id + '/Rooms">Manage Rooms</a>')
+				}));
+			}
+			else
+			{
+				
+			}
 		},
 
-		rooms: function(hotelId)
+		rooms: function(id)
 		{
 			console.log("router:rooms");
 
-			// var rooms = new HotelRooms();
-			// rooms.fetch();
+			var hotel = this.getGame().getHotels().get(id);
 
-			this.getApp().show(new RoomsLayout({
-				collection: this.getApp().hotel.getRooms()
-			}));
+			if (hotel)
+			{
+				var view = new RoomsLayout({
+					model: hotel,
+					collection: hotel.getRooms()
+				});
+				this.getApp().show(view);
+			}
 		},
 
-		room: function(hotelId, roomId)
+		room: function(id, roomId)
 		{
-			this.getApp().show(new EditRoomLayout({
-				model: this.getApp().hotel.getRooms().get(roomId),
-				availableRooms: 100
-			}));
+			var hotel = this.getGame().getHotels().get(id);
+
+			if (hotel)
+			{
+				var room = hotel.getRooms().get(roomId);
+
+				if (room)
+				{
+					this.getApp().show(new EditRoomLayout({
+						hotel: hotel,
+						model: room,
+					}));
+				}
+				else
+				{
+
+				}
+			}
+			else
+			{
+
+			}
 		},
 
 		notFound: function()

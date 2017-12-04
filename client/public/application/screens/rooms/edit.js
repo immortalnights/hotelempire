@@ -33,6 +33,11 @@ define(['backbone.marionette',
 			Marionette.View.prototype.initialize.call(this, options);
 		},
 
+		getUnassignedRoomCount: function()
+		{
+			return this.getOption('hotel').get('unassignedRooms');
+		},
+
 		onChange: function()
 		{
 			var data = $(this.$el).serializeArray();
@@ -43,7 +48,7 @@ define(['backbone.marionette',
 		{
 			var value = $(event.target).val();
 			var allocation = parseInt(this.ui.allocate.val());
-			var maximum = this.getOption('availableRooms');
+			var maximum = this.getUnassignedRoomCount();
 
 			if (value === 'none')
 			{
@@ -109,7 +114,7 @@ define(['backbone.marionette',
 		serializeData: function()
 		{
 			var data = Marionette.View.prototype.serializeData.call(this);
-			data.available = this.getOption('availableRooms');
+			data.available =  this.getUnassignedRoomCount();
 			return data;
 		},
 

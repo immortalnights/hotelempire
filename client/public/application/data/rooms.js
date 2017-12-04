@@ -5,7 +5,7 @@ define(['backbone',
 	'use strict';
 
 	var Rooms = Backbone.Collection.extend({
-		url: 'application/staticdata/hotelrooms.json',
+		url: false,
 		model: Room,
 
 		initialize: function(models, options)

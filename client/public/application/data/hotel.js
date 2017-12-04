@@ -11,21 +11,25 @@ define(['backbone',
 		{
 			Backbone.Model.prototype.initialize.call(this, attributes, options);
 
+			this.initRooms();
+		},
+
+		initRooms: function()
+		{
 			this.rooms = new Rooms();
 
 			var self = this;
 			var roomId = 0;
-			var roomTypes = new RoomTypes();
-			roomTypes.fetch().then(function() {
-				roomTypes.each(function(item) {
-					self.rooms.add(_.extend(item.pick('type', 'name'), {
-						id: roomId++,
-						enabled: false,
-						allocated: 0
-					}));
-				});
 
-				self.trigger('ready', this);
+			var app = require('application')();
+			var roomTypes = app.getData('rooms');
+
+			roomTypes.each(function(item) {
+				self.rooms.add(_.extend(item.pick('type', 'name'), {
+					id: roomId++,
+					enabled: false,
+					allocated: 0
+				}));
 			});
 		},
 

@@ -15,6 +15,11 @@ define(['backbone.marionette',
 			return require('application')();
 		},
 
+		getGame: function()
+		{
+			return this.getApp().getGame();
+		},
+
 		execute: function(callback, args, name)
 		{
 			// var game = this.getApp().getGame();
