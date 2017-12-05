@@ -3,6 +3,9 @@
 	<div class="card-body">
 		<h4 class="card-title"><%- name %></h4>
 		<p class="card-text"><%- allocated %> Allocated</p>
+		<ul>
+			<li><%- obj.facilities %></li>
+		</ul>
 		<a href="#/Hotel/1/Rooms/<%- id %>" class="btn btn-primary <%- !enabled ? 'disabled' : '' %>">Edit</a>
 	</div>
 </div>

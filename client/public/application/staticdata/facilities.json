@@ -13,5 +13,30 @@
 		"id": "housekeeping",
 		"name": "Housekeeping",
 		"costModifier": 0
+	},
+	{
+		"id": "ironingboard",
+		"name": "Ironing Board",
+		"costModifier": 1
+	},
+	{
+		"id": "airconditioning",
+		"name": "Air Conditioning",
+		"costModifier": 1
+	},
+	{
+		"id": "minibar",
+		"name": "Mini Bar",
+		"costModifier": 1
+	},
+	{
+		"id": "television",
+		"name": "Television",
+		"costModifier": 1
+	},
+	{
+		"id": "dvd/bluray",
+		"name": "DVD / Blue Ray",
+		"costModifier": 1
 	}
 ]

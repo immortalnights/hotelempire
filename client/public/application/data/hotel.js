@@ -1,9 +1,8 @@
 define(['backbone',
-        'data/rooms',
-        'data/roomtypes'],
+        'data/rooms'],
+
        function(Backbone,
-                Rooms,
-                RoomTypes) {
+                Rooms) {
 	'use strict'
 
 	var Hotel = Backbone.Model.extend({
