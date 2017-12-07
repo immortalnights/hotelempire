@@ -1,7 +1,9 @@
-define(['backbone.marionette',
+define(['backbone',
+       'backbone.marionette',
        'data/hotels',
        'cookies'],
-       function(Marionette,
+       function(Backbone,
+                Marionette,
                 Hotels,
                 Cookies) {
 	'use strict';
@@ -36,8 +38,15 @@ define(['backbone.marionette',
 		// Temporary setup - until more new game handling is completed
 		var defaultHotel = new (Hotels.prototype.model)({
 			id: 1,
+			region: 'England',
+			location: 'seaside',
 			totalRooms: 10,
 			unassignedRooms: 10
+		});
+
+		game.player = new Backbone.Model({
+			date: { week: 1, year: 2017 },
+			balance: 25000
 		});
 
 		game.hotels.add(defaultHotel);

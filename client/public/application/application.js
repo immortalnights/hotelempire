@@ -1,26 +1,15 @@
 define(['backbone.marionette',
        'routers/index',
+       'views/gamelayout',
        'game',
        'cookies'],
        function(Marionette,
                 Router,
+                RootLayout,
                 Game,
                 Cookies) {
 	'use strict';
 
-	var RootLayout = Marionette.View.extend({
-		el: 'body',
-		template: false,
-
-
-		regions: {
-			main: 'main'
-		},
-
-		onRender: function()
-		{
-		}
-	})
 
 	var Application = Marionette.Application.extend({
 		initialize: function(options)
@@ -43,7 +32,6 @@ define(['backbone.marionette',
 		onStart: function()
 		{
 			console.log("Started...");
-			this.rootLayout = new RootLayout();
 
 			this.data = {};
 
@@ -61,7 +49,14 @@ define(['backbone.marionette',
 				url: 'application/staticdata/facilities.json'
 			}));
 
-			Promise.all(deferred).then(_.bind(this.onPreloadComplete, this)).catch(function() {
+			var self = this;
+			Promise.all(deferred)
+			.then(function() {
+				_.defer(function() {
+					self.onPreloadComplete()
+				});
+			})
+			.catch(function() {
 				console.error("Failed to load some data");
 			});
 			console.log("Loading static data...")
@@ -99,9 +94,12 @@ define(['backbone.marionette',
 			// Start a new game
 			this.game = Game.start();
 
+			this.rootLayout = new RootLayout();
+			this.rootLayout.render();
+
 			// Start routing
 			console.log("Starting Backbone.history");
-			_.defer(function() { Backbone.history.start() });
+			Backbone.history.start();
 		},
 
 		getGame: function()

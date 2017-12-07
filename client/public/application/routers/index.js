@@ -48,7 +48,7 @@ define(['backbone.marionette',
 			if (hotel)
 			{
 				this.getApp().show(new Marionette.View({
-					template: _.template('<a href="#/Hotel/' + hotel.id + '/Rooms">Manage Rooms</a>')
+					template: _.template('')
 				}));
 			}
 			else
