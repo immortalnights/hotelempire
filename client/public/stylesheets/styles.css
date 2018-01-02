@@ -14,3 +14,14 @@ div#standardrooms {
 .card {
 	border: 1px solid gray;
 }
+
+.allocated > .btn-group.btn-group-sm {
+	float: right;
+}
+
+.facilities .form-group > label {
+	xwidth: 200px;
+}
+.facilities .form-group > .btn-group.btn-group-sm {
+	float: right;
+}

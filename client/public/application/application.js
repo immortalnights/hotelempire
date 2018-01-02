@@ -10,7 +10,7 @@ define(['backbone.marionette',
                 Cookies) {
 	'use strict';
 
-
+	// TODO update for Marionette 3 (root layout changes!)
 	var Application = Marionette.Application.extend({
 		initialize: function(options)
 		{
@@ -116,6 +116,13 @@ define(['backbone.marionette',
 		{
 			console.log("Show");
 			this.rootLayout.showChildView('main', view);
+		},
+
+		showDialog: function(dialog)
+		{
+			this.rootLayout.showChildView('dialog', dialog);
+
+			$(this.rootLayout.getRegion('dialog').el).modal();
 		}
 	});
 

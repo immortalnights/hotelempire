@@ -1,7 +1,5 @@
-<h3><%- allocated %> <%- name %></h3>
-
 <div>
-	<div class="form-group form-inline">
+	<div class="form-group form-inline allocated">
 		<label>Allocate</label> <span id="allocation"><%- allocated %></span> of <%- obj.available %>
 		<input type="hidden" name="allocate" value="<%- allocated %>" min="0" />
 		<div class="btn-group btn-group-sm" role="group">
@@ -15,7 +13,7 @@
 	</div>
 </div>
 
-<div id="facilitylist"></div>
+<div id="facilitylist" class="facilities"></div>
 
 <div class="form-group form-inline text-right">
 	<label>Cost</label>
@@ -25,7 +23,7 @@
 	</div>
 </div>
 
-<div class="text-right">
-	<a href="#/Hotel/1/Rooms" type="button" class="btn btn-secondary">Cancel</a>
-	<button type="button" class="btn btn-success" name="apply">Apply</button>
+<div class="modal-footer text-right">
+	<a href="#/Hotel/1/Rooms" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+	<button type="button" class="btn btn-success" name="apply" data-dismiss="modal">Apply</button>
 </div>

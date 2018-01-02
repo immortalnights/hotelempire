@@ -1,7 +1,11 @@
 define(['backbone.marionette',
+        'views/dialog',
+        'screens/rooms/edit',
         'tpl!screens/rooms/templates/layout.html',
         'tpl!screens/rooms/templates/card.html'],
        function(Marionette,
+                Dialog,
+                Editor,
                 template,
                 cardTemplate) {
 	'use strict';
@@ -45,6 +49,8 @@ define(['backbone.marionette',
 			standard.invoke('set', 'enabled', true);
 			suits.invoke('set', 'enabled', true);
 
+			var hotel = this.model;
+
 			var View = Marionette.NextCollectionView.extend({
 				childView: Marionette.View,
 				childViewOptions: function(item) {
@@ -54,8 +60,24 @@ define(['backbone.marionette',
 
 						modelEvents: {
 							'change': 'render'
+						},
+
+						triggers: {
+							'click a.btn': 'edit:room'
 						}
 					};
+				},
+
+				onChildviewEditRoom: function(view, event)
+				{
+					var dialog = new Dialog({
+						title: "Edit '" + view.model.get('name') + "'",
+						body: new Editor({
+							model: view.model,
+							hotel: hotel
+						})
+					});
+					dialog.show();
 				}
 			});
 

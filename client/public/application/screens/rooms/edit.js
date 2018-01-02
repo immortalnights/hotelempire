@@ -8,6 +8,52 @@ define(['backbone.marionette',
                 editFacilityTemplate) {
 	'use strict';
 
+	var FacilityList = Marionette.NextCollectionView.extend({
+		tagName: 'ul',
+		className: 'list-unstyled',
+
+		childView: Marionette.View.extend({
+			tagName: 'li',
+			template: editFacilityTemplate,
+
+			events: {
+				'change input[type=radio]': 'onToggleRadio'
+			},
+
+			modelEvents: {
+				'change': 'render'
+			},
+
+			onToggleRadio: function(event)
+			{
+				var radio = $(event.target);
+
+				// get all radio buttons for this item
+				this.$('input[name="' + radio[0].name + '"]').parent().toggleClass('active');
+			},
+
+			serializeData: function()
+			{
+				var appliedFacilities = this.getOption('appliedFacilities');
+
+				var data = Marionette.View.prototype.serializeData.call(this);
+				data.enabled = _.contains(appliedFacilities, this.model.get('id'));
+				return data;
+			}
+		}),
+
+		childViewOptions: function() {
+			return {
+				appliedFacilities: this.getOption('appliedFacilities')
+			};
+		},
+
+		initialize: function(options)
+		{
+			Marionette.NextCollectionView.prototype.initialize.call(this, options);
+		}
+	});
+
 	var Layout = Marionette.View.extend({
 
 		tagName: 'form',
@@ -64,7 +110,7 @@ define(['backbone.marionette',
 				allocation += parseInt(value);
 			}
 
-			allocation = Math.max(0, Math.min(allocation, maximum));
+			// allocation = Math.max(0, Math.min(allocation, maximum));
 
 			this.ui.allocationLabel.text(allocation);
 			this.ui.allocate.val(allocation);
@@ -72,9 +118,18 @@ define(['backbone.marionette',
 
 		onApply: function()
 		{
+			// serialize form
 			var data = $(this.$el).serializeArray();
 
 			// verify allocated / available rooms, recalculate cost, verify player balance, apply upgrades, deduct cost
+			var allocated = _.find(data, { name: 'allocate' });
+			// Calculate available rooms (currently assigned and unassigned)
+			var available = this.getUnassignedRoomCount() + this.model.get('allocated');
+			allocated.value = parseInt(allocated.value);
+			// Max to allocated room value
+			allocated.value = Math.min(available, allocated.value);
+			// Min to zero
+			allocated.value = Math.max(0, allocated.value);
 
 			// transform jQuery form data into model compatible data
 			var modelData = {
@@ -82,7 +137,6 @@ define(['backbone.marionette',
 			};
 
 			_.each(data, function(item) {
-
 				// Find the original element
 				var input = this.$('[name="' + item.name + '"]')[0];
 
@@ -93,12 +147,10 @@ define(['backbone.marionette',
 					{
 						modelData.facilities.push(item.name);
 					}
-					
 				}
 				else if (item.name === 'allocate')
 				{
-					var value = parseInt(item.value);
-					modelData.allocated = value;
+					modelData.allocated = item.value;
 				}
 				else
 				{
@@ -125,43 +177,10 @@ define(['backbone.marionette',
 			facilities.fetch();
 
 			this.listenToOnce(facilities, 'sync', function(collection) {
-				var facilities = this.model.get('facilities');
-
-				var facilityList = new Marionette.NextCollectionView({
-					tagName: 'ul',
-					className: 'list-unstyled',
+				this.showChildView('facilitiesLocation', new FacilityList({
 					collection: collection,
-
-					childView: Marionette.View.extend({
-						tagName: 'li',
-						template: editFacilityTemplate,
-
-						events: {
-							'change input[type=radio]': 'onToggleRadio'
-						},
-
-						modelEvents: {
-							'change': 'render'
-						},
-
-						onToggleRadio: function(event)
-						{
-							var radio = $(event.target);
-
-							// get all radio buttons for this item
-							this.$('input[name="' + radio[0].name + '"]').parent().toggleClass('active');
-						},
-
-						serializeData: function()
-						{
-							var data = Marionette.View.prototype.serializeData.call(this);
-							data.enabled = _.contains(facilities, this.model.get('id'));
-							return data;
-						}
-					})
-				});
-
-				this.showChildView('facilitiesLocation', facilityList);
+					appliedFacilities: this.model.get('facilities')
+				}));
 			});
 		}
 	});

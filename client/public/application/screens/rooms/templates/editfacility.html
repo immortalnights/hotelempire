@@ -1,11 +1,11 @@
 <div class="form-group">
 	<label><%- name %></label>
 
-	<div class="btn-group" data-toggle="buttons">
-		<label class="btn btn-primary btn-sm <%- enabled ? 'active' : '' %>">
+	<div class="btn-group btn-group-sm" data-toggle="buttons">
+		<label class="btn btn-default <%- enabled ? 'active' : '' %>">
 			<input type="radio" name="<%- id %>" value="true" data-category="facility" autocomplete="off" <%- enabled ? 'checked' : '' %> />Yes
 		</label>
-		<label class="btn btn-primary btn-sm <%- !enabled ? 'active' : '' %>">
+		<label class="btn btn-default <%- !enabled ? 'active' : '' %>">
 			<input type="radio" name="<%- id %>" value="false" data-category="facility" autocomplete="off" <%- !enabled ? 'checked' : '' %> />No
 		</label>
 	</div>

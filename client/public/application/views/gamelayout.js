@@ -15,7 +15,8 @@ define(['backbone',
 		regions: {
 			header: 'header',
 			main: 'main',
-			footer: 'footer'
+			footer: 'footer',
+			dialog: '#modal'
 		},
 
 		initialize: function(options)
