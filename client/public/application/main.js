@@ -11,11 +11,15 @@ require.config({
 		'backbone': '../node_modules/backbone/backbone',
 		'backbone.marionette': '../node_modules/backbone.marionette/lib/backbone.marionette',
 		'backbone.radio': '../node_modules/backbone.radio/build/backbone.radio',
-		'backbone.poller': '../node_modules/backbone-poller/backbone.poller.min'
+		'backbone.poller': '../node_modules/backbone-poller/backbone.poller.min',
+		'fontawesome': '../node_modules/@fortawesome/fontawesome/index',
+		'fontawesome-solid': '../node_modules/@fortawesome/fontawesome-free-solid/index',
+		'fontawesome-regular': '../node_modules/@fortawesome/fontawesome-free-regular/index',
+		'fontawesome-brands': '../node_modules/@fortawesome/fontawesome-free-brands/index'
 	}
 });
 
-requirejs(['application'], function(application) {
+requirejs(['application', 'fontawesome', 'fontawesome-solid', 'fontawesome-regular', 'fontawesome-brands'], function(application, fa) {
 	'use strict';
 
 	var app = application();

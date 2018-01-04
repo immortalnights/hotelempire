@@ -25,3 +25,7 @@ div#standardrooms {
 .facilities .form-group > .btn-group.btn-group-sm {
 	float: right;
 }
+
+.tile {
+	border: 1px solid gray;
+}

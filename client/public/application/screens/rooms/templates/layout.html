@@ -1,4 +1,9 @@
-<div class="alert alert-info">Unallocated Rooms: <%- unassignedRooms %></div>
+<% if (unassignedRooms === 0) { %>
+	<div class="alert alert-success">All hotel rooms have been allocated.</div>
+<% } else { %>
+	<div class="alert alert-info">Hotel has <%- unassignedRooms %> unallocated rooms!</div>
+<% } %>
+
 <div id="standardrooms" style="margin-bottom: 1em;"></div>
 <div id="suitrooms"></div>
 

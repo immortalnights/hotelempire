@@ -2,19 +2,20 @@ define(['backbone.marionette',
        'routers/core',
        'data/hotel',
        'screens/rooms/layout',
-       'screens/rooms/edit'],
+       'screens/rooms/edit',
+       'tpl!screens/hotels/templates/hoteltile.html'],
        function(Marionette,
                 CoreRouter,
                 Hotel,
                 RoomsLayout,
-                EditRoomLayout) {
+                EditRoomLayout,
+                hotelTileTemplate) {
 	'use strict';
 
 	var Router = CoreRouter.extend({
 		routes: {
 			'':                     'index',
-			'Hotel/:id':            'hotel',
-			'Hotel':                'hotel',
+			'Hotel/:id/View':       'hotel',
 			'Hotel/:id/Rooms':      'rooms',
 			'Hotel/:id/Rooms/:id':  'room',
 			'*notFound':            'notFound'
@@ -31,12 +32,29 @@ define(['backbone.marionette',
 			console.log("router:index");
 
 			// Get the ID of the first hotel
-			var id = this.getGame().getHotels().first().id;
+			var hotels = this.getGame().getHotels();
 
-			Backbone.history.navigate('#/Hotel/' + id);
-			// this.getApp().show(new Marionette.View({
-			// 	template: _.template('abc')
-			// }));
+			window.h = hotels;
+
+			var layout = new Marionette.View({
+				template: _.template('<div id="hotelcontrols"></div><div id="hotels"></div>'),
+				regions: {
+					controlsLocation: '#hotelcontrols',
+					hotelsInventory: '#hotels',
+				}
+			});
+
+			this.getApp().show(layout);
+
+			layout.showChildView('hotelsInventory', new Marionette.NextCollectionView({
+				collection: hotels,
+				childView: Marionette.View,
+				className: 'row',
+				childViewOptions: {
+					className: 'col-md-4',
+					template: hotelTileTemplate
+				}
+			}));
 		},
 
 		hotel: function(id)
@@ -48,7 +66,8 @@ define(['backbone.marionette',
 			if (hotel)
 			{
 				this.getApp().show(new Marionette.View({
-					template: _.template('')
+					template: hotelTileTemplate,
+					model: hotel
 				}));
 			}
 			else

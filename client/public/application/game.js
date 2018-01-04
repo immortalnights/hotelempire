@@ -38,6 +38,8 @@ define(['backbone',
 		// Temporary setup - until more new game handling is completed
 		var defaultHotel = new (Hotels.prototype.model)({
 			id: 1,
+			name: "Default",
+			typeName: "Small Hotel",
 			region: 'England',
 			location: 'seaside',
 			totalRooms: 10,

@@ -11,13 +11,16 @@ define(['backbone.marionette',
 	'use strict';
 
 	var Layout = Marionette.View.extend({
-		className: 'container-fluid',
 		template: template,
 
 		regions: {
 			standardLocation: '#standardrooms',
 			suitsLocation: '#suitrooms',
 			specialistLocation: '#specialistrooms'
+		},
+
+		modelEvents: {
+			change: 'render'
 		},
 
 		initialize: function(options)
@@ -50,6 +53,20 @@ define(['backbone.marionette',
 			suits.invoke('set', 'enabled', true);
 
 			var hotel = this.model;
+
+			// When any room is changed, update the hotel allocation
+			this.listenTo(this.collection, 'change', function(room, options) {
+				// verify the total is less than the max
+				var totalAllocation = this.collection.reduce(function(memo, model, index, collection) {
+					return memo + model.get('allocated');
+				}, 0);
+
+				var diff = hotel.get('totalRooms') - totalAllocation;
+
+				console.assert(diff >= 0);
+
+				hotel.set('unassignedRooms', diff);
+			});
 
 			var View = Marionette.NextCollectionView.extend({
 				childView: Marionette.View,
