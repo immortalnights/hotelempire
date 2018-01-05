@@ -18,6 +18,7 @@ define(['backbone.marionette',
 			'Hotel/:id/View':       'hotel',
 			'Hotel/:id/Rooms':      'rooms',
 			'Hotel/:id/Rooms/:id':  'room',
+			'Hotel/:id/Staff':      'staff',
 			'*notFound':            'notFound'
 		},
 
