@@ -3,12 +3,14 @@ define(['backbone.marionette',
        'data/hotel',
        'screens/rooms/layout',
        'screens/rooms/edit',
+       'screens/staff/layout',
        'tpl!screens/hotels/templates/hoteltile.html'],
        function(Marionette,
                 CoreRouter,
                 Hotel,
                 RoomsLayout,
                 EditRoomLayout,
+                staffLayout,
                 hotelTileTemplate) {
 	'use strict';
 
@@ -116,6 +118,22 @@ define(['backbone.marionette',
 			else
 			{
 
+			}
+		},
+
+		staff: function(id)
+		{
+			console.log("router:staff");
+
+			var hotel = this.getGame().getHotels().get(id);
+
+			if (hotel)
+			{
+				var view = new staffLayout({
+					model: hotel,
+					collection: hotel.getRooms()
+				});
+				this.getApp().show(view);
 			}
 		},
 
