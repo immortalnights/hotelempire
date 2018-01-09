@@ -3,6 +3,7 @@ define(['backbone.marionette',
        'data/hotel',
        'screens/rooms/layout',
        'screens/rooms/edit',
+       'views/dialog',
        'tpl!screens/staff/templates/layout.html',
        'tpl!screens/hotels/templates/hoteltile.html'],
        function(Marionette,
@@ -10,6 +11,7 @@ define(['backbone.marionette',
                 Hotel,
                 RoomsLayout,
                 EditRoomLayout,
+                Dialog,
                 staffLayoutTemplate,
                 hotelTileTemplate) {
 	'use strict';
@@ -37,14 +39,25 @@ define(['backbone.marionette',
 			// Get the ID of the first hotel
 			var hotels = this.getGame().getHotels();
 
-			window.h = hotels;
-
 			var layout = new Marionette.View({
-				template: _.template('<div id="hotelcontrols"></div><div id="hotels"></div>'),
+				template: _.template('<div id="hotelcontrols" class="text-right"><button class="btn btn-primary" data-control="buyhotel"><span class="fas fa-plus"></span> Buy Hotel</button></div><div id="hotels"></div>'),
+
+				triggers: {
+					'click button[data-control=buyhotel]': 'buy:hotel'
+				},
+
 				regions: {
 					controlsLocation: '#hotelcontrols',
 					hotelsInventory: '#hotels',
 				}
+			});
+
+			this.listenTo(layout, 'buy:hotel', function() {
+				this.getApp().showDialog(new Dialog({
+					body: {
+						template: _.template("new hotel")
+					}
+				}))
 			});
 
 			this.getApp().show(layout);

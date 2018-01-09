@@ -1,12 +1,26 @@
 <div class="card">
-	<img class="card-img-top" src="..." alt="<%- name %> image">
+	<img class="card-img-top" style="display: none" src="..." alt="<%- name %> image">
+	<!-- <h4 class="card-title" style="margin: 0; background-color: lightgray; border-top-right-radius: 0.25rem; border-top-left-radius: 0.25em;">
+		<span style="display: inline-block;background-color: lightblue;width: 2em;text-align: center; padding: 5px 0;margin-right: 10px;border-top-left-radius: 0.25rem;"><%- allocated %></span>
+		<span><%- name %></span>
+	</h4> -->
 	<div class="card-body">
 		<h4 class="card-title"><%- name %></h4>
-		<p class="card-text"><%- allocated %> Allocated</p>
-		<ul>
-			<li><p>Facilities</p></li>
-			<li><%- obj.facilities %></li>
+		<h6 class="card-subtitle mb-2 text-muted"><%- allocated %> Allocated</h6>
+
+		<% if (_.isEmpty(obj.facilities)) { %>
+			<p class="card-text text-center text-warning">No facilities have been enabled.</p>
+		<% } else { %>
+			<h5>Facilities</h5>
+			<ul class="list-unstyled">
+				<li></li>
+				<li><%- obj.facilities %></li>
+			</ul>
+		<% } %>
+	</div>
+	<div class="card-footer">
+		<ul class="nav navigation-bar text-center justify-content-center">
+			<li><a href="#" data-control="editroom" class="<%- !enabled ? 'disabled' : '' %> card-link">Edit</a></li>
 		</ul>
-		<a href="#/Hotel/1/Rooms/<%- id %>" class="btn btn-primary <%- !enabled ? 'disabled' : '' %>">Edit</a>
 	</div>
 </div>

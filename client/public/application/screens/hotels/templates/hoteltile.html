@@ -1,9 +1,8 @@
 <div class="card">
-	<div class="card-header">
-		<h2><%- name %> <small><%- typeName %></small></h2>
-	</div>
 
 	<div class="card-body">
+		<h4 class="card-title"><%- name %></h4>
+		<h6 class="card-subtitle mb-2 text-muted"><%- typeName %></h6>
 		<dl>
 			<dt>Region</dt>
 			<dd><%- region %></dd>
@@ -15,11 +14,9 @@
 	</div>
 
 	<div class="card-footer text-center">
-		<ul class="nav navigation-bar">
-			<li><a href="#/Hotel/<%- id %>/View">Details</a></li>
-			<li><a href="#/Hotel/<%- id %>/Rooms">Rooms</a></li>
-			<li><a href="#/Hotel/<%- id %>/Facilities">Facilities</a></li>
-			<li><a href="#/Hotel/<%- id %>/Staff">Staff</a></li>
-		</ul>
+		<a href="#/Hotel/<%- id %>/View" class="btn">Details</a>
+		<a href="#/Hotel/<%- id %>/Rooms" class="btn">Rooms</a>
+		<a href="#/Hotel/<%- id %>/Facilities" class="btn">Facilities</a>
+		<a href="#/Hotel/<%- id %>/Staff" class="btn">Staff</a>
 	</div>
 </div>

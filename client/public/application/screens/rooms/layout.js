@@ -80,7 +80,7 @@ define(['backbone.marionette',
 						},
 
 						triggers: {
-							'click a.btn': 'edit:room'
+							'click a[data-control=editroom]': 'edit:room'
 						}
 					};
 				},

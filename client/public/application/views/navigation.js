@@ -6,7 +6,7 @@ define(['backbone.marionette',
 
 	var Navigation = Marionette.View.extend({
 		template: template,
-		className: 'navbar navbar-default navbar-fixed-bottom',
+		className: 'navbar fixed-bottom navbar-light bg-light justify-content-center',
 
 		initialize: function(options)
 		{
