@@ -17,10 +17,6 @@ require.config({
 		'fontawesome-solid': '../node_modules/@fortawesome/fontawesome-free-solid/index',
 		'fontawesome-regular': '../node_modules/@fortawesome/fontawesome-free-regular/index',
 		'fontawesome-brands': '../node_modules/@fortawesome/fontawesome-free-brands/index'
-	},
-
-	shim: {
-		'bootstrap': ['jquery']
 	}
 });
 
